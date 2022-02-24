@@ -35,7 +35,7 @@ const Page = () => {
           */
           component:Component
         }
-      }).run()
+      })
     }
     </div>
   )
@@ -58,6 +58,8 @@ const Page = () => {
 ```
 ### 交由render库的配置方式
 ```tsx
+import {createComplier} from '@swords-pdf/render';
+
 const config = [
   {
     type:'charts-modal',
@@ -67,7 +69,8 @@ const config = [
   }
 ];
 
-const {run} = render(config)
+const complier = createComplier(config);
+complier.run()
 ```
 
 # 关于构建
@@ -83,9 +86,24 @@ await page.goto('http://www.baidu.com',{
   waitUnitl:'networdidle2'
 })
 ```
+
+# 现阶段问题描述
+
+## 目录生成
+> dom方式生成pdf的过程中，无法确定h1,h2,h3等标题的具体页数,故生成目录暂无解决方案，
+但引入complier的目的就是为了后期扩展生成目录等一系列功能，大致思路：生成dom的过程中根据options中的
+pagination属性，逻辑判断h1,h2所在大致页码，后将页码记录到records中，暴露complier的同时同时暴露records
+
+## 封面生成
+> 封面不需要头，尾标题、页码等信息，dom生成阶段无法控制
+
+
+解决方法：
+> puppeteer单独生成封面（一般dom结构比较简单，html即可，需要传输数据可使用node ejs),将生成的封面pdf buffer与正文pdf buffer拼接（百度上有很多方法，大家自行查看关于node pdf buffer流合并)
 ## 服务器运行报错
 > 确定您都导入了官方介绍的依赖依旧报错  
-检查puppeteer携带的chrome浏览器可执行文件是否含有w权限，没有建议chmod
+检查puppeteer携带的chrome浏览器可执行文件是否含有x权限，没有建议chmod
+为当前用户赋予可执行权限：`chomod u+x chrome`
 
 ## 关于puppeteer作为node服务打包部署
 > 需要打包所有的出node资源之外的所有依赖，通过webpack打包即可
