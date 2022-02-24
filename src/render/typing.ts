@@ -2,7 +2,7 @@ import type {DefaultProps,PFC} from '@swords-pdf/react';
 import React from 'react';
 
 
-export type PFCType = 'table' | 'descriptions'| 'charts-modal';
+export type PFCType = 'table' | 'descriptions'| 'charts-model';
 
 export interface Pagination {
   width?:number,

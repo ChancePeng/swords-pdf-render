@@ -53,7 +53,7 @@ const Page = () => {
 import {ChartsModel} from '@swords-pdf/react';
 
 const Page = () => {
-  return <ChartsModel modalType="line" config={{}} dataSource={[]} >
+  return <ChartsModel modelType="line" config={{}} dataSource={[]} >
 }
 
 ```
@@ -63,9 +63,9 @@ import {createComplier} from '@swords-pdf/render';
 
 const config = [
   {
-    type:'charts-modal',
+    type:'charts-model',
     config:{},
-    moduleType:'line',
+    modelType:'line',
     // name字段会从data中获取相应key为name的value值注入组件dataSource中，当然，如果此处为静态数据，可直接配置dataSource为相应数据即可，无需配置name,name和dataSource同时存在时，dataSource将被覆盖
     name:'',
   }
