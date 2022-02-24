@@ -43,11 +43,12 @@ const Page = () => {
 ```
 
 # 图表能力
-> `@swords-pdf/react`的`<ChartsModel />`组件结合`@ant-design/charts`做了进一步的封装，方便对接钩端数据
+> `@swords-pdf/react`的`<ChartsModel />`组件结合`@ant-design/charts`做了进一步的封装，方便对接后端数据
 
 ## 使用：
 `import {ChartsModel} from '@swords-pdf/react`
 ### 使用组件：
+> 当然，您也可以使用@ant-design/charts
 ```tsx
 import {ChartsModel} from '@swords-pdf/react';
 
@@ -56,7 +57,7 @@ const Page = () => {
 }
 
 ```
-### 交由render库的配置方式
+### 交由render库的配置方式(常用)
 ```tsx
 import {createComplier} from '@swords-pdf/render';
 
@@ -64,6 +65,7 @@ const config = [
   {
     type:'charts-modal',
     config:{},
+    moduleType:'line',
     // name字段会从data中获取相应key为name的value值注入组件dataSource中，当然，如果此处为静态数据，可直接配置dataSource为相应数据即可，无需配置name,name和dataSource同时存在时，dataSource将被覆盖
     name:'',
   }
@@ -104,6 +106,8 @@ await page.goto('http://www.baidu.com',{
   waitUnitl:'networdidle2'
 })
 ```
+> 使用umi.js框架时,建议关闭mfsu
+
 
 
 ## 关于puppeteer作为node服务打包部署
