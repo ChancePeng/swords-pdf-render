@@ -5,7 +5,7 @@ import renderHeadLine from './renderHedaLine';
 
 import type {Options,ConfigType} from './typing';
 
-export const render = (config:ConfigType[],data?:Record<string,any>,options?:Options) => {
+const render = (config:ConfigType[],data?:Record<string,any>,options?:Options) => {
   const {
     components={},
     pagination,
@@ -25,7 +25,7 @@ export const render = (config:ConfigType[],data?:Record<string,any>,options?:Opt
       beforeDataRender,
       ...props
     } = item;
-    const {title} = headline || {}
+    const {title,..._headline} = headline || {}
     if(type){
       const Component = components[type];
       let _style = {
@@ -56,7 +56,7 @@ export const render = (config:ConfigType[],data?:Record<string,any>,options?:Opt
       }
       return (
         <div key={index} className={className} style={_style}>
-          {renderHeadLine(headline)}
+          {renderHeadLine(_headline)}
           {title && <div>{title}</div>}
           <Component {...props} options={options} />
         </div>
@@ -65,7 +65,16 @@ export const render = (config:ConfigType[],data?:Record<string,any>,options?:Opt
     return null;
   })
 
-  return {
-    run:()=>result
-  }
+  return result;
+}
+
+const createComplier = (config:ConfigType[],data?:Record<string,any>,options?:Options) => {
+  const complier:any = {};
+  complier.run = () => render(config,data,options);
+  return complier;
+}
+
+export {
+  createComplier,
+  render,
 }
