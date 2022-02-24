@@ -76,16 +76,6 @@ complier.run()
 # 关于构建
 使用了@swords/tools构建整个render为lib库，react库类似，详情查看wepack.config配置
 
-# 关于puppeteer那些坑
-放弃了常规的pdf生成方式，相应的puppeteer存在很对坑等着大家一起入
-## 后端数据还未完全加载就生成pdf?
-在page.goto时配置waitUnitil为networdidle2
-```ts
-const page = await browser.newPage();
-await page.goto('http://www.baidu.com',{
-  waitUnitl:'networdidle2'
-})
-```
 
 # 现阶段问题描述
 
@@ -104,6 +94,17 @@ pagination属性，逻辑判断h1,h2所在大致页码，后将页码记录到re
 > 确定您都导入了官方介绍的依赖依旧报错  
 检查puppeteer携带的chrome浏览器可执行文件是否含有x权限，没有建议chmod
 为当前用户赋予可执行权限：`chomod u+x chrome`
+# 关于puppeteer那些坑
+放弃了常规的pdf生成方式，相应的puppeteer存在很对坑等着大家一起入
+## 后端数据还未完全加载就生成pdf?
+在page.goto时配置waitUnitil为networdidle2
+```ts
+const page = await browser.newPage();
+await page.goto('http://www.baidu.com',{
+  waitUnitl:'networdidle2'
+})
+```
+
 
 ## 关于puppeteer作为node服务打包部署
 > 需要打包所有的出node资源之外的所有依赖，通过webpack打包即可
