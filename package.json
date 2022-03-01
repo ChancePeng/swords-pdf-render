@@ -4,8 +4,8 @@
   "main": "lib/index.js",
   "license": "MIT",
   "scripts": {
-    "build":"yarn webpack",
-    "watch":"yarn webpack -w"
+    "build": "yarn webpack",
+    "watch": "yarn webpack -w"
   },
   "dependencies": {
     "@babel/core": "^7.16.7",

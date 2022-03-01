@@ -6,6 +6,11 @@
 `yarn add @swords-pdf/render`或`npm i @swords-pdf`
 > 在您使用此库时，建议导入`@swords-pdf/react`UI组件库
 
+为防止导出报告样式异常，请导入UI库css资源
+```tsx
+import '@swords-pdf/react/lib/dist.css'
+```
+
 # 场景
 ## 报告导出  
 > 因传统的模板样式生成报告(pdf)的方式，存在不美观，开发节奏缓慢等一系列缺点，我们放弃此种方式，而利用puppeteer(无头浏览器)可对网页生成pdf的特性，我们将pdf以网页的方式呈现，而面对页面与后端数据的交互，决定抽离出一个库render，通过简单的配置，即可生成美观，动态的html结构

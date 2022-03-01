@@ -6,23 +6,19 @@ import { PFCType,Options,InitOptions } from './typing';
 const defaultComponents:Record<PFCType,PFC<any>> = {
   table:Table,
   descriptions:Descriptions,
-  'charts-modal':ChartsModel,
+  'charts-model':ChartsModel,
 }
 
 const initOptions = (options?:Options):InitOptions => {
   if(options){
     const {
       pfcs={},
-      pagination=true,
-      __server,
     } = options;
     return {
       components:{
         ...defaultComponents,
         ...pfcs,
       },
-      pagination,
-      __server,
     }
   }
   return {}

@@ -1,4 +1,4 @@
-import {get} from 'lodash';
+import {get,assign, merge} from 'lodash';
 import React from 'react';
 import initOptions from './init.options';
 import renderHeadLine from './renderHedaLine';
@@ -6,56 +6,77 @@ import renderHeadLine from './renderHedaLine';
 import type {Options,ConfigType} from './typing';
 
 const render = (config:ConfigType[],data?:Record<string,any>,options?:Options) => {
+  // 初始化参数
   const {
     components={},
-    pagination,
-    __server,
   } = initOptions(options);
 
-  let domHeight:number = 0;
-
-  const result =  config.map((item,index) => {
+  const elements:(JSX.Element| null)[] = config.map((item,index) => {
+    // 解构租价配置信息
     const {
       type,
       name,
       headline,
-      newPage,
+      pageBreak,
       className,
-      style={},
       beforeDataRender,
+      style,
       ...props
     } = item;
     const {title,..._headline} = headline || {}
+    let _className = className;
+    // 如果存在组件类型字段
     if(type){
+      // 获取组件
       const Component = components[type];
-      let _style = {
-        ...style,
-      }
+      // 存在name字段，将从data中获取数据
       if(name){
-        props.dataSource = get(data,name);
+        if(typeof name === 'string'){
+          props.dataSource = get(data,name);
+        }else{
+          let _dataSource:any = null;
+          name.forEach((_name:any) => {
+            if(typeof _name === 'string'){
+              const dataWithName = get(data,_name);
+              if(dataWithName){
+                if(dataWithName instanceof Array){
+                  if(!_dataSource){
+                    _dataSource = assign([],dataWithName)
+                  }else{
+                    _dataSource = _dataSource.concat(dataWithName)
+                  }
+                }else{
+                  if(!_dataSource){
+                    _dataSource = merge({},dataWithName)
+                  }else{
+                    _dataSource = merge(_dataSource,dataWithName)
+                  }
+                }
+              }
+            }else{
+              const {name:groupName,key:groupKey} = _name;
+              const dataWithName = get(data,groupName);
+              if(dataWithName){
+                if(!_dataSource){
+                  _dataSource = {}
+                  _dataSource[groupKey] = dataWithName;
+                }else{
+                  _dataSource[groupKey] = dataWithName;
+                }
+              }
+            }
+          })
+          props.dataSource = _dataSource;
+        }
         if(beforeDataRender){
           props.dataSource = beforeDataRender(props.dataSource,data)
         }
       }
-      if(pagination){
-        const {height} = pagination;
-        let _height = 0;
-        const componentHeight = Component.height;
-        if(componentHeight){
-          if(typeof componentHeight=== 'number'){
-            _height = componentHeight;
-          }else{
-            _height = componentHeight(props,options)
-          }
-        }
-        const _index = Math.ceil(domHeight/height || 0);
-        if(newPage && __server===false){
-          _style.marginTop = height * _index - domHeight;
-        }
-        domHeight += _height;
+      if(pageBreak){
+        _className = _className ? _className.concat(' swords-pdf-page-break') : 'swords-pdf-page-break'
       }
       return (
-        <div key={index} className={className} style={_style}>
+        <div key={index} className={_className} style={style}>
           {renderHeadLine(_headline)}
           {title && <div>{title}</div>}
           <Component {...props} options={options} />
@@ -65,7 +86,7 @@ const render = (config:ConfigType[],data?:Record<string,any>,options?:Options) =
     return null;
   })
 
-  return result;
+  return elements;
 }
 
 const createComplier = (config:ConfigType[],data?:Record<string,any>,options?:Options) => {
