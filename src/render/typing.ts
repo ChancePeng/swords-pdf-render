@@ -18,16 +18,44 @@ export interface InitOptions extends Record<string,any> {
   components?:Record<string,PFC<any>>
 }
 
+
+export type DescType = string | string[] | ((data?:any,record?:Record<string,any>)=>string | string[])
 export interface HeadLine {
+  /**
+   * 一级标题
+   */
   h1?:string,
+  /**
+   * 二级标题
+   */
   h2?:string,
+  /**
+   * 三级标题
+   */
   h3?:string,
+  /**
+   * 组件头信息
+   */
   title?:string | React.ElementType | JSX.Element | React.ReactElement,
+  /**
+   * 描述信息
+   */
+  desc?:DescType
 }
 
 export interface NameType {
+  /**
+   * 分组数据的key
+   */
   key:string,
+  /**
+   * 将要从data中取值的key
+   */
   name:string,
+}
+
+export interface Complier {
+  run:()=>JSX.Element
 }
 
 export type ConfigType<T=string,D={}> =  DefaultProps<D> & {

@@ -2,8 +2,9 @@ import {get,assign, merge} from 'lodash';
 import React from 'react';
 import initOptions from './init.options';
 import renderHeadLine from './renderHedaLine';
+import renderDesc from './render.desc';
 
-import type {Options,ConfigType} from './typing';
+import type {Options,ConfigType,Complier} from './typing';
 
 const render = (config:ConfigType[],data?:Record<string,any>,options?:Options) => {
   // 初始化参数
@@ -23,7 +24,7 @@ const render = (config:ConfigType[],data?:Record<string,any>,options?:Options) =
       style,
       ...props
     } = item;
-    const {title,..._headline} = headline || {}
+    const {title,desc,..._headline} = headline || {}
     let _className = className;
     // 如果存在组件类型字段
     if(type){
@@ -79,17 +80,17 @@ const render = (config:ConfigType[],data?:Record<string,any>,options?:Options) =
         <div key={index} className={_className} style={style}>
           {renderHeadLine(_headline)}
           {title && <div>{title}</div>}
+          {renderDesc(desc,props.dataSource,data)}
           <Component {...props} options={options} />
         </div>
       )
     }
     return null;
   })
-
   return elements;
 }
 
-const createComplier = (config:ConfigType[],data?:Record<string,any>,options?:Options) => {
+const createComplier = (config:ConfigType[],data?:Record<string,any>,options?:Options):Complier => {
   const complier:any = {};
   complier.run = () => render(config,data,options);
   return complier;
