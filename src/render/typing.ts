@@ -1,8 +1,9 @@
 import type {DefaultProps,PFC} from '@swords-pdf/react';
 import React from 'react';
+import { FlexProps } from '../components/flex';
 
 
-export type PFCType = 'table' | 'descriptions'| 'charts-model';
+export type PFCType = 'table' | 'descriptions'| 'charts-model' | 'flex' | 'table-column';
 
 
 export interface Pagination {
@@ -58,7 +59,7 @@ export interface Complier {
   run:()=>JSX.Element
 }
 
-export type ConfigType<T=string,D={}> =  DefaultProps<D> & {
+export type ConfigType<T=string,D={}> = DefaultProps<D> & FlexProps<T,D> & {
   /**
    * 映射在data数据的key
    * 此组件将通过name值从data中获取值并放入dataSource中
@@ -89,6 +90,11 @@ export type ConfigType<T=string,D={}> =  DefaultProps<D> & {
    * 此类名并非绑定在组件本身，而在组件外层的div壳
    */
   className?:string,
+  /**
+   * mark
+   * 角标描述
+   */
+  mark?:string|string[],
   /**
    * hook事件：在组件渲染之前，对数据处理的回调函数
    */

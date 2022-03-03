@@ -3,6 +3,7 @@ import React from 'react';
 import initOptions from './init.options';
 import renderHeadLine from './renderHedaLine';
 import renderDesc from './render.desc';
+import renderMark from './render.mark';
 
 import type {Options,ConfigType,Complier} from './typing';
 
@@ -22,6 +23,7 @@ const render = (config:ConfigType[],data?:Record<string,any>,options?:Options) =
       className,
       beforeDataRender,
       style,
+      mark,
       ...props
     } = item;
     const {title,desc,..._headline} = headline || {}
@@ -82,6 +84,7 @@ const render = (config:ConfigType[],data?:Record<string,any>,options?:Options) =
           {title && <div>{title}</div>}
           {renderDesc(desc,props.dataSource,data)}
           <Component {...props} options={options} />
+          {mark && renderMark(mark)}
         </div>
       )
     }
