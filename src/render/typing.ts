@@ -1,4 +1,4 @@
-import type {DefaultProps,PFC} from '@swords-pdf/react';
+import type {DefaultProps,DescriptionsColumnType,PFC, TableColumnColumnType} from '@swords-pdf/react';
 import React from 'react';
 import { FlexProps } from '../components/flex';
 

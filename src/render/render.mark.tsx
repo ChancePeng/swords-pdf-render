@@ -8,7 +8,7 @@ const renderMark = (mark?:string|string[]) => {
       _mark = [_mark]
     }
     return (
-      <div className="pdf-mark">
+      <div className="swords-ui-mark">
         {_mark.map((item,index) => <div key={index} style={{fontSize:12,color:'#CCC'}}>{item}</div> )}
       </div>
     )

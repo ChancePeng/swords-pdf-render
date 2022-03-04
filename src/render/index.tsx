@@ -21,9 +21,9 @@ const render = (config:ConfigType[],data?:Record<string,any>,options?:Options) =
       headline,
       pageBreak,
       className,
-      beforeDataRender,
       style,
       mark,
+      beforeDataRender,
       ...props
     } = item;
     const {title,desc,..._headline} = headline || {}
@@ -76,14 +76,14 @@ const render = (config:ConfigType[],data?:Record<string,any>,options?:Options) =
         }
       }
       if(pageBreak){
-        _className = _className ? _className.concat(' swords-pdf-page-break') : 'swords-pdf-page-break'
+        _className = _className ? _className.concat(' swords-ui-page-break') : 'swords-ui-page-break'
       }
       return (
         <div key={index} className={_className} style={style}>
           {renderHeadLine(_headline)}
-          {title && <div className='pdf-title'>{title}</div>}
+          {title && <div className='swords-ui-title'>{title}</div>}
           {renderDesc(desc,props.dataSource,data)}
-          <Component {...props} options={options} />
+          <Component {...props} options={options} $data={data} />
           {mark && renderMark(mark)}
         </div>
       )
