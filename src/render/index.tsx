@@ -81,7 +81,7 @@ const render = (config:ConfigType[],data?:Record<string,any>,options?:Options) =
       return (
         <div key={index} className={_className} style={style}>
           {renderHeadLine(_headline)}
-          {title && <div>{title}</div>}
+          {title && <div className='pdf-title'>{title}</div>}
           {renderDesc(desc,props.dataSource,data)}
           <Component {...props} options={options} />
           {mark && renderMark(mark)}
