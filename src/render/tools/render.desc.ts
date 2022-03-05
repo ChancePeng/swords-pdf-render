@@ -1,5 +1,4 @@
-import type {DescType} from './typing';
-
+import type {DescType} from '../typing';
 
 const renderDesc = (desc?:DescType,data?:any,record?:Record<string,any>):string|string[]|null => {
   if(desc){

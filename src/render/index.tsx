@@ -1,9 +1,7 @@
 import {get,assign, merge} from 'lodash';
 import React from 'react';
 import initOptions from './init.options';
-import renderHeadLine from './renderHedaLine';
-import renderDesc from './render.desc';
-import renderMark from './render.mark';
+import {renderDesc,renderHeadLine,renderMark,renderTitle} from './tools';
 
 import type {Options,ConfigType,Complier} from './typing';
 
@@ -81,10 +79,10 @@ const render = (config:ConfigType[],data?:Record<string,any>,options?:Options) =
       return (
         <div key={index} className={_className} style={style}>
           {renderHeadLine(_headline)}
-          {title && <div className='swords-ui-title'>{title}</div>}
+          {renderTitle(title,props.dataSource,data)}
           {renderDesc(desc,props.dataSource,data)}
           <Component {...props} options={options} $data={data} />
-          {mark && renderMark(mark)}
+          {renderMark(mark)}
         </div>
       )
     }

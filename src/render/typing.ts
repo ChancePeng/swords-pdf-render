@@ -21,6 +21,10 @@ export interface InitOptions extends Record<string,any> {
 
 
 export type DescType = string | string[] | ((data?:any,record?:Record<string,any>)=>string | string[])
+
+type TitleTypeBase = string | React.ElementType | JSX.Element | React.ReactElement
+
+export type TitleType = string | ((data?:any,record?:Record<string,any>) => TitleTypeBase)
 export interface HeadLine {
   /**
    * 一级标题
@@ -37,7 +41,7 @@ export interface HeadLine {
   /**
    * 组件头信息
    */
-  title?:string | React.ElementType | JSX.Element | React.ReactElement,
+  title?:TitleType,
   /**
    * 描述信息
    */
