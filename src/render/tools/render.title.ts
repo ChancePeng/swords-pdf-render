@@ -1,3 +1,4 @@
+import React from "react";
 import { TitleType } from "../typing";
 
 
@@ -7,7 +8,10 @@ const renderTitle = (title?:TitleType,data?:any,record?:Record<string,any>) => {
     if(_title instanceof Function){
       _title = _title(data,record)
     }
-    return _title;
+    return React.createElement('div',{
+      className:'swords-ui-title',
+      children:_title
+    });
   };
   return null
 }

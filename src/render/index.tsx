@@ -40,12 +40,15 @@ const render = (config:ConfigType[],data?:Record<string,any>,options?:Options) =
             if(typeof _name === 'string'){
               const dataWithName = get(data,_name);
               if(dataWithName){
+                // 拿到的dataSource为数组
                 if(dataWithName instanceof Array){
                   if(!_dataSource){
                     _dataSource = assign([],dataWithName)
                   }else{
                     _dataSource = _dataSource.concat(dataWithName)
                   }
+                }else if(typeof dataWithName === 'string' || typeof dataWithName === 'number'){
+                  _dataSource?_dataSource.push(dataWithName):_dataSource=[dataWithName]
                 }else{
                   if(!_dataSource){
                     _dataSource = merge({},dataWithName)
