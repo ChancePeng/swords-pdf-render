@@ -45,7 +45,12 @@ export interface HeadLine {
   /**
    * 描述信息
    */
-  desc?:DescType
+  desc?:DescType,
+    /**
+   * mark
+   * 角标描述
+   */
+  mark?:string|string[],
 }
 
 export interface NameType {
@@ -94,11 +99,6 @@ export type ConfigType<T=string,D={}> = DefaultProps<D> & FlexProps<T,D> & {
    * 此类名并非绑定在组件本身，而在组件外层的div壳
    */
   className?:string,
-  /**
-   * mark
-   * 角标描述
-   */
-  mark?:string|string[],
   /**
    * hook事件：在组件渲染之前，对数据处理的回调函数
    */

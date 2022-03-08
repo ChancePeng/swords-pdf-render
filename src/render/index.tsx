@@ -1,5 +1,6 @@
 import {get,assign, merge} from 'lodash';
 import React from 'react';
+import defineData from './define.data';
 import initOptions from './init.options';
 import {renderDesc,renderHeadLine,renderMark,renderTitle} from './tools';
 
@@ -20,61 +21,20 @@ const render = (config:ConfigType[],data?:Record<string,any>,options?:Options) =
       pageBreak,
       className,
       style,
-      mark,
       beforeDataRender,
       ...props
     } = item;
-    const {title,desc,..._headline} = headline || {}
+    const {title,desc,mark,..._headline} = headline || {}
     let _className = className;
     // 如果存在组件类型字段
     if(type){
       // 获取组件
       const Component = components[type];
       // 存在name字段，将从data中获取数据
-      if(name){
-        if(typeof name === 'string'){
-          props.dataSource = get(data,name);
-        }else{
-          let _dataSource:any = null;
-          name.forEach((_name:any) => {
-            if(typeof _name === 'string'){
-              const dataWithName = get(data,_name);
-              if(dataWithName){
-                // 拿到的dataSource为数组
-                if(dataWithName instanceof Array){
-                  if(!_dataSource){
-                    _dataSource = assign([],dataWithName)
-                  }else{
-                    _dataSource = _dataSource.concat(dataWithName)
-                  }
-                }else if(typeof dataWithName === 'string' || typeof dataWithName === 'number'){
-                  _dataSource?_dataSource.push(dataWithName):_dataSource=[dataWithName]
-                }else{
-                  if(!_dataSource){
-                    _dataSource = merge({},dataWithName)
-                  }else{
-                    _dataSource = merge(_dataSource,dataWithName)
-                  }
-                }
-              }
-            }else{
-              const {name:groupName,key:groupKey} = _name;
-              const dataWithName = get(data,groupName);
-              if(dataWithName){
-                if(!_dataSource){
-                  _dataSource = {}
-                  _dataSource[groupKey] = dataWithName;
-                }else{
-                  _dataSource[groupKey] = dataWithName;
-                }
-              }
-            }
-          })
-          props.dataSource = _dataSource;
-        }
-        if(beforeDataRender){
-          props.dataSource = beforeDataRender(props.dataSource,data)
-        }
+      const _define_data = defineData(name,data);
+      props.dataSource = _define_data;
+      if(beforeDataRender){
+        props.dataSource = beforeDataRender(_define_data,data)
       }
       if(pageBreak){
         _className = _className ? _className.concat(' swords-ui-page-break') : 'swords-ui-page-break'
@@ -82,8 +42,8 @@ const render = (config:ConfigType[],data?:Record<string,any>,options?:Options) =
       return (
         <div key={index} className={_className} style={style}>
           {renderHeadLine(_headline)}
-          {renderTitle(title,props.dataSource,data)}
-          {renderDesc(desc,props.dataSource,data)}
+          {renderTitle(title,_define_data,data)}
+          {renderDesc(desc,_define_data,data)}
           <Component {...props} options={options} $data={data} />
           {renderMark(mark)}
         </div>
