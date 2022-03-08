@@ -1,6 +1,6 @@
 import React from 'react';
-import {PFC} from '@swords-pdf/react';
-import {render} from '../../render'
+import { PFC } from '@swords-pdf/react';
+import { render } from '../../render'
 import { ConfigType ,Options} from '../..';
 
 interface FlexProps<T=string,D={}> {

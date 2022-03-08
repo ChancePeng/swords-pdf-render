@@ -1,4 +1,3 @@
-import {get,assign, merge} from 'lodash';
 import React from 'react';
 import defineData from './define.data';
 import initOptions from './init.options';
