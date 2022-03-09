@@ -9,6 +9,7 @@ const render = (config:ConfigType[],data?:Record<string,any>,options?:Options) =
   // 初始化参数
   const {
     components={},
+    ergodicTitle
   } = initOptions(options);
 
   const elements:(JSX.Element| null)[] = config.map((item,index) => {
@@ -31,16 +32,16 @@ const render = (config:ConfigType[],data?:Record<string,any>,options?:Options) =
       const Component = components[type];
       // 存在name字段，将从data中获取数据
       const _define_data = defineData(name,data);
-      props.dataSource = _define_data;
+      _define_data && (props.dataSource = _define_data);
       if(beforeDataRender){
-        props.dataSource = beforeDataRender(_define_data,data)
+        props.dataSource = beforeDataRender(_define_data ? _define_data : props.dataSource ,data)
       }
       if(pageBreak){
         _className = _className ? _className.concat(' swords-ui-page-break') : 'swords-ui-page-break'
       }
       return (
         <div key={index} className={_className} style={style}>
-          {renderHeadLine(_headline)}
+          {renderHeadLine(_headline,ergodicTitle)}
           {renderTitle(title,_define_data,data)}
           {renderDesc(desc,_define_data,data)}
           <Component {...props} options={options} $data={data} />

@@ -15,12 +15,14 @@ const initOptions = (options?:Options):InitOptions => {
   if(options){
     const {
       pfcs={},
+      ergodicTitle,
     } = options;
     return {
       components:{
         ...defaultComponents,
         ...pfcs,
       },
+      ergodicTitle,
     }
   }
   return {}

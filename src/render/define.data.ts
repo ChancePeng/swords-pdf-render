@@ -1,7 +1,7 @@
-import {get,assign,merge} from 'lodash';
-import {NameType} from './typing'
+import { get, assign, merge } from 'lodash';
+import { NameType } from './typing'
 
-const defineData = (name?:string | string[] | NameType[],data?:Record<string,any>) => {
+const defineData = (name?: string | string[] | NameType[], data?:Record<string,any>) => {
   if(name){
     if(typeof name === 'string'){
       return get(data,name);
@@ -44,6 +44,7 @@ const defineData = (name?:string | string[] | NameType[],data?:Record<string,any
       return _dataSource;
     }
   }
+  return null;
 }
 
 
