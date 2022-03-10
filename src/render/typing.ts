@@ -11,14 +11,20 @@ export interface Pagination {
   height?:number,
 }
 
+
+export interface ErgodicType {
+  title?:boolean,
+  headline?:boolean
+}
+
 export interface Options {
   pfcs?:Record<string,PFC<any>>,
-  ergodicTitle?:boolean,
+  ergodic?:ErgodicType
 }
 
 export interface InitOptions extends Record<string,any> {
   components?:Record<string,PFC<any>>,
-  ergodicTitle?:boolean
+  ergodic?:ErgodicType
 }
 
 

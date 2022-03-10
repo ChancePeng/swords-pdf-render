@@ -9,7 +9,7 @@ const render = (config:ConfigType[],data?:Record<string,any>,options?:Options) =
   // 初始化参数
   const {
     components={},
-    ergodicTitle
+    ergodic,
   } = initOptions(options);
 
   const elements:(JSX.Element| null)[] = config.map((item,index) => {
@@ -41,8 +41,8 @@ const render = (config:ConfigType[],data?:Record<string,any>,options?:Options) =
       }
       return (
         <div key={index} className={_className} style={style}>
-          {renderHeadLine(_headline,ergodicTitle)}
-          {renderTitle(title,_define_data,data)}
+          {renderHeadLine(_headline,ergodic?.headline)}
+          {renderTitle(title,_define_data,data,ergodic?.title,type)}
           {renderDesc(desc,_define_data,data)}
           <Component {...props} options={options} $data={data} />
           {renderMark(mark)}
