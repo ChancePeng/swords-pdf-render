@@ -3,7 +3,7 @@ import React from 'react';
 import { FlexProps } from '../components/flex';
 
 
-export type PFCType = 'table' | 'descriptions'| 'charts-model' | 'flex' | 'table-column';
+export type PFCType = 'table' | 'descriptions'| 'charts-model' | 'flex' | 'table-column' | 'empty';
 
 
 export interface Pagination {

@@ -9,6 +9,7 @@ const defaultComponents:Record<PFCType,PFC<any>> = {
   'charts-model':ChartsModel,
   flex:Flex,
   'table-column':TableColumn,
+  empty:() => null
 }
 
 const initOptions = (options?:Options):InitOptions => {

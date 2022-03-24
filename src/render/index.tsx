@@ -13,7 +13,7 @@ const render = (config:ConfigType[],data?:Record<string,any>,options?:Options) =
   } = initOptions(options);
 
   const elements:(JSX.Element| null)[] = config.map((item,index) => {
-    // 解构租价配置信息
+    // 解构组件配置信息
     const {
       type,
       name,
