@@ -17,6 +17,7 @@ const initOptions = (options?:Options):InitOptions => {
     const {
       pfcs={},
       ergodic,
+      __init__=true
     } = options;
     return {
       components:{
@@ -24,6 +25,7 @@ const initOptions = (options?:Options):InitOptions => {
         ...pfcs,
       },
       ergodic,
+      __init__,
     }
   }
   return {}

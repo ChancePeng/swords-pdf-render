@@ -15,7 +15,7 @@ const Flex:PFC<FlexProps> = (props) => {
   if(flexChildren){
     return (
       <div className='swords-ui-flex' style={{display:'flex',justifyContent:'space-between'}}>
-        {render(flexChildren,dataSource,options)}
+        {render(flexChildren,dataSource,{...options,__init__:false})}
       </div>
     )
   }

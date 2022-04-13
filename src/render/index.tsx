@@ -2,6 +2,7 @@ import React from 'react';
 import defineData from './define.data';
 import initOptions from './init.options';
 import {renderDesc,renderHeadLine,renderMark,renderTitle} from './tools';
+import { initStatistics } from './tools/render.hedaline';
 
 import type {Options,ConfigType,Complier} from './typing';
 
@@ -10,7 +11,10 @@ const render = (config:ConfigType[],data?:Record<string,any>,options?:Options) =
   const {
     components={},
     ergodic,
+    __init__
   } = initOptions(options);
+
+  __init__ && initStatistics();
 
   const elements:(JSX.Element| null)[] = config.map((item,index) => {
     // 解构组件配置信息

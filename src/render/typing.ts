@@ -19,7 +19,8 @@ export interface ErgodicType {
 
 export interface Options {
   pfcs?:Record<string,PFC<any>>,
-  ergodic?:ErgodicType
+  ergodic?:ErgodicType,
+  __init__?:boolean
 }
 
 export interface InitOptions extends Record<string,any> {

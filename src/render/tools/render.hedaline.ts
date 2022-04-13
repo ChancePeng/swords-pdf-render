@@ -1,7 +1,7 @@
 import React from 'react';
 import toChineseNumeral from '../../utils/toChineseNumeral';
 
-const statistics:Record<string,any> = {
+let statistics:Record<string,any> = {
   h1:0,
   h2:0,
   h3:0,
@@ -33,4 +33,16 @@ const renderHeadLine = (headline?:Record<string,any>,bool?:boolean) => {
   })
 }
 
+const initStatistics = () => {
+  statistics = {
+    h1:0,
+    h2:0,
+    h3:0,
+  }
+}
+
 export default renderHeadLine;
+
+export {
+  initStatistics
+}
