@@ -93,7 +93,7 @@ export type ConfigType<T=string,D={}> = DefaultProps<D> & FlexProps<T,D> & {
    * h1,h2,h3
    * title表头信息
    */
-  headline?:HeadLine,
+  headline?:HeadLine | ((data?:Record<string,any>,records?:any) => HeadLine),
   /**
    * 此组件是否为新的一页开头
    */
@@ -108,6 +108,10 @@ export type ConfigType<T=string,D={}> = DefaultProps<D> & FlexProps<T,D> & {
    * 此类名并非绑定在组件本身，而在组件外层的div壳
    */
   className?:string,
+  /**
+   * 空值时是否渲染
+   */
+  emptyRendered?:boolean,
   /**
    * hook事件：在组件渲染之前，对数据处理的回调函数
    */

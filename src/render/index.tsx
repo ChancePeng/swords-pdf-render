@@ -25,10 +25,10 @@ const render = (config:ConfigType[],data?:Record<string,any>,options?:Options) =
       pageBreak,
       className,
       style,
+      emptyRendered=true,
       beforeDataRender,
       ...props
     } = item;
-    const {title,desc,mark,..._headline} = headline || {}
     let _className = className;
     // 如果存在组件类型字段
     if(type){
@@ -40,15 +40,24 @@ const render = (config:ConfigType[],data?:Record<string,any>,options?:Options) =
       if(beforeDataRender){
         props.dataSource = beforeDataRender(_define_data ? _define_data : props.dataSource ,data)
       }
+      if(!emptyRendered && !props?.dataSource){
+        console.log('type',type,headline)
+        return null;
+      }
       if(pageBreak){
         _className = _className ? _className.concat(' swords-ui-page-break') : 'swords-ui-page-break'
       }
+      let headlineAct:any = headline;
+      if(headline instanceof Function){
+        headlineAct = headline(defineData,data)
+      }
+      const {title,desc,mark,..._headline} = headlineAct || {}
       return (
         <div key={index} className={_className} style={style}>
           {renderHeadLine(_headline,ergodic?.headline)}
           {renderTitle(title,_define_data,data,ergodic?.title,type)}
           {renderDesc(desc,_define_data,data)}
-          <Component {...props} options={options} $data={data} />
+          <Component {...props} options={options} $data={data} $name={name} />
           {renderMark(mark)}
         </div>
       )
