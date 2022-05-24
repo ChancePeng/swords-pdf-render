@@ -129,6 +129,10 @@ const browser = await puppeteer.launch({
 })
 ```
 
+# 更新日志
+## 1.0.2
+fix: 移除租价配置为：当组件获取的值为空值时不渲染的属性emptyRendered为false时，依然渲染的bug
+
 
 
 
